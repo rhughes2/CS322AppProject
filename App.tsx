@@ -111,8 +111,12 @@ function App(): React.JSX.Element {
               source={require('./assets/burger-button.png')}
               />
           </Section>
-          <Section title="Debug">
-            <DebugInstructions />
+          <Section title="Featured Bars">
+          <Image
+              style={styles.bar}
+              // Isn't it brew pub not brew hub? or maybe I just haven't been to this one :p -RJ
+              source={require('./assets/brew-hub.png')}
+              />
           </Section>
           <Section title="Learn More">
             Read the docs to discover what to do next:
@@ -155,6 +159,16 @@ const styles = StyleSheet.create({
     height: 98,
     top: 185,
     left: 243.87,
+    gap: 0,
+    opacity: 0,
+
+  },
+
+  bar: {
+    width: 266,
+    height: 229,
+    top: 346,
+    left: 26,
     gap: 0,
     opacity: 0,
 
