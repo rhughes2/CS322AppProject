@@ -118,10 +118,16 @@ function App(): React.JSX.Element {
               source={require('./assets/brew-hub.png')}
               />
           </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
+          <Section title="Popular Places">
+          <Image
+              style={styles.place}
+              source={require('./assets/popular-place.png')}
+              />
+          <Image
+              style={styles.place}
+              source={require('./assets/popular-place.png')}
+              />
           </Section>
-          <LearnMoreLinks />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -145,6 +151,9 @@ const styles = StyleSheet.create({
   highlight: {
     fontWeight: '700',
   },
+
+  // These were mostly ripped from the Figma mockup, please edit as you see fit -RJ
+
   bell: {
     width: 51,
     height: 57,
@@ -172,8 +181,17 @@ const styles = StyleSheet.create({
     gap: 0,
     opacity: 0,
 
-  }
+  },
 
+  place: {
+    width: 154.43,
+    height: 216,
+    top: 632,
+    left: 26,
+    gap: 0,
+    opacity: 0,
+
+  },
 
 });
 
