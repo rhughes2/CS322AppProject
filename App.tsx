@@ -15,6 +15,7 @@ import {
   Text,
   useColorScheme,
   View,
+  Image,
 } from 'react-native';
 
 import {
@@ -71,17 +72,19 @@ function App(): React.JSX.Element {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
+          <Section title="What's the plan for tonight?">
+          Insert Search Bar Here 
+          <Image 
+            style={styles.bell}
+            source={require('./assets/bell-button.png')}>
+          </Image>
           </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
+          <Section title="">
+            
           </Section>
           <Section title="Debug">
             <DebugInstructions />
@@ -113,6 +116,17 @@ const styles = StyleSheet.create({
   highlight: {
     fontWeight: '700',
   },
+  bell: {
+    width: 51,
+    height: 57,
+    top: 25,
+    left: 310,
+    gap: 0,
+    opacity: 0,
+
+  },
+
+  
 });
 
 export default App;
