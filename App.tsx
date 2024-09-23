@@ -83,8 +83,33 @@ function App(): React.JSX.Element {
             source={require('./assets/bell-button.png')}>
           </Image>
           </Section>
+          {/* Will most likely not want to use section element here but not sure what to replace with, just dont want the title ya feel? -RJ */}
           <Section title="">
-            
+            {/* Will change to more than just burgers later lol -RJ*/}
+            <Image
+              style={styles.button}
+              source={require('./assets/burger-button.png')}
+              />
+              <Image
+              style={styles.button}
+              source={require('./assets/burger-button.png')}
+              />
+              <Image
+              style={styles.button}
+              source={require('./assets/burger-button.png')}
+              />
+              <Image
+              style={styles.button}
+              source={require('./assets/burger-button.png')}
+              />
+              <Image
+              style={styles.button}
+              source={require('./assets/burger-button.png')}
+              />
+              <Image
+              style={styles.button}
+              source={require('./assets/burger-button.png')}
+              />
           </Section>
           <Section title="Debug">
             <DebugInstructions />
@@ -125,8 +150,17 @@ const styles = StyleSheet.create({
     opacity: 0,
 
   },
+  button : {
+    width: 58.57,
+    height: 98,
+    top: 185,
+    left: 243.87,
+    gap: 0,
+    opacity: 0,
 
-  
+  }
+
+
 });
 
 export default App;
