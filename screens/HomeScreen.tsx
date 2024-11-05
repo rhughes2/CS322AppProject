@@ -15,8 +15,8 @@ const HomeScreen = () => {
   // For some reason the images don't populate... I've tried a bunch of stuff
 
   const featuredBars = [
-    { id: '1', title: 'Istmo Brew Hub', rating: '4.5', image: './Drinkea Images/Drinks/Drink.png', time: '10-15 mins' },
-    { id: '2', title: 'Feroz', rating: '4.7', image: './Drinkea Images/Drinks/two-cocktails-by-restaurant-open-fire-royalty-free-image-1680877011.jpg', time: '15-20 mins' },
+    { id: '1', title: 'Istmo Brew Hub', rating: '4.5', Image: '../assets/Drink.png', time: '10-15 mins' },
+    { id: '2', title: 'Feroz', rating: '4.7', Image: '../assets/two-cocktails-by-restaurant-open-fire-royalty-free-image-1680877011.jpg', time: '15-20 mins' },
   ];
 
   return (

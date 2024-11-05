@@ -1,6 +1,13 @@
-import React from 'react';
-import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, Image } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, Image, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { AUTH_CONFIG } from '../authConfig';
+import Auth0 from 'react-native-auth0';
+
+const auth0 = new Auth0({
+  domain:AUTH_CONFIG.domain,
+  clientId:AUTH_CONFIG.clientId,
+});
 
 const WelcomeScreen = () => {
   const navigation = useNavigation();
@@ -9,12 +16,45 @@ const WelcomeScreen = () => {
     navigation.navigate('Home'); //I don't know why this is giving error but it's still works :/ -A.V
   };
 
+  const handleSignUp = () => {
+    navigation.navigate('SignUp');
+  }
+
+//Google sign up/login
+  const handleGoogleSignup = async () =>{
+    try {
+      const credentials = await auth0.webAuth.authorize({
+        scope: 'openid profile email',
+        connection: 'google-oauth0',
+      });
+      console.log('logged in with Google', credentials);
+    } catch (error) {
+      Alert.alert('Error', 'Failed to log in with Google');
+      console.log(error);
+    }
+  };
+
+//Facebook signup/login
+
+  const hangleFacebookSignup = async () => {
+    try {
+      const credentials = await auth0.webAuth.authorize({
+        scope: 'openid profile email',
+        connection: 'facebook',
+      });
+      console.log('logged in with Facebook', credentials);
+    }  catch(error) {
+       Alert.alert('Error', 'Failed to log in with Facebook');
+       console.error(error);
+    }
+  }
+
   return (
     <View style={styles.container}>
     {/* Wrapper for the ImageBackground */}
     <View style={styles.imageWrapper}>
       <ImageBackground 
-        source={require('./assets/welcome-drink-2.png')}
+        source={require('../assets/welcome-drink-2.png')}
         style={styles.background}
         resizeMode="cover"
       />
@@ -40,17 +80,17 @@ const WelcomeScreen = () => {
         <View style={styles.socialButtons}>
           {/* Facebook button */}
           <TouchableOpacity style={styles.facebookButton}>
-            <Image source={require('./assets/facebook.png')} style={styles.icon} />
+            <Image source={require('../assets/facebook.png')} style={styles.icon} />
             <Text style={styles.socialText}>FACEBOOK</Text>
           </TouchableOpacity>
           {/* Google button */}
           <TouchableOpacity style={styles.googleButton}>
-            <Image source={require('./assets/google.png')} style={styles.icon} />
+            <Image source={require('../assets/google.png')} style={styles.icon} />
             <Text style={styles.socialText}>GOOGLE</Text>
           </TouchableOpacity>
         </View>
         {/* Email/Phone button */}
-        <TouchableOpacity style={styles.emailButton}>
+        <TouchableOpacity style={styles.emailButton} onPress={handleSignUp}>
           <Text style={styles.emailButtonText}>Start with email or phone</Text>
         </TouchableOpacity>
       </View>
@@ -119,8 +159,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   signInWithText: {
-    color: 'lightgray',
+    fontSize: 15,
+    color: 'white',
     marginBottom: 10,
+    fontWeight: 'bold',
   },
   socialButtons: {
     flexDirection: 'row',
