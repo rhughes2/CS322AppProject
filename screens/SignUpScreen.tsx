@@ -28,8 +28,23 @@ const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSignUp = () => {
-    // Placeholder for Auth0 sign-up logic if needed
+  const handleSignUp = /* async */() => {
+    // Placeholder for Auth0 sign-up logic if needed -Arvic
+    // Method for creating Users, can be moved to useAuth.js
+    // I cannot find any methods outlining this process, may be issue -Nate
+    /* try {
+      await auth0.auth
+        .createUser({
+          email: email,
+          password: password,
+          connection: 'Username-Password-Authentication',
+          user_metadata: { fullName: fullName },
+        });
+      console.log('User created successfully');
+    } catch (error) {
+      console.error('Error creating user: ', error);
+    }
+  }; */
     console.log('Sign up with:', fullName, email, password);
   };
 

@@ -1,8 +1,10 @@
 import { useState } from "react";
-import Auth0 from "react-native-auth0";
+import Auth0 from "react-native-auth0"; // import {useAuth0, Auth0Provider} from 'react-native-auth0
 import { AUTH_CONFIG } from "./authConfig";
 
 const auth0 = new Auth0(AUTH_CONFIG);
+
+// Why not use Universal Login, omits creating of sign-up and login for Auth0 right? -Nate
 
 const useAuth = () => {
     const [user, setUser] = useState(null);
