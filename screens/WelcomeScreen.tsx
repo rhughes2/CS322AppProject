@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, Image, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { AUTH_CONFIG } from '../authConfig';
+import Config from 'react-native-config';
 import Auth0 from 'react-native-auth0';
+import { AUTH0_DOMAIN, AUTH0_CLIENT_ID } from '@env';
 
 const auth0 = new Auth0({
-  domain:AUTH_CONFIG.domain,
-  clientId:AUTH_CONFIG.clientId,
+  domain: AUTH0_DOMAIN,
+  clientId: AUTH0_CLIENT_ID,
 });
 
 const WelcomeScreen = () => {
@@ -95,13 +96,14 @@ const WelcomeScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Sign In link */}
+      {/* Log In link */}
       <View style={styles.signInContainer}>
         <Text style={styles.signInText}>
-          Already have an account? <Text style={styles.signInLink}>Sign In</Text>
+          Already have an account? 
+          <Text style={styles.logInLink} onPress={() => navigation.navigate('LogInScreen')}>Log In</Text>
         </Text>
-      </View>
     </View>
+  </View>
   );
 };
 
@@ -215,7 +217,7 @@ const styles = StyleSheet.create({
   signInText: {
     color: 'lightgray',
   },
-  signInLink: {
+  logInLink: {
     color: 'white',
     fontWeight: 'bold',
   },

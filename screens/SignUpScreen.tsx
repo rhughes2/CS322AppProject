@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
-import useAuth from '../useAuth';
 
 const LoginScreen = () => {
   const { user, login, logout } = useAuth();
@@ -24,26 +23,17 @@ const LoginScreen = () => {
 };
 
 const SignUpScreen = ({ navigation }) => {
-  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSignUp = () => {
     // Placeholder for Auth0 sign-up logic if needed
-    console.log('Sign up with:', fullName, email, password);
+    console.log('Sign up with:', email, password);
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sign Up</Text>
-
-      {/* Full Name Input */}
-      <TextInput
-        style={styles.input}
-        placeholder="Full name"
-        value={fullName}
-        onChangeText={setFullName}
-      />
 
       {/* Email Input */}
       <TextInput
