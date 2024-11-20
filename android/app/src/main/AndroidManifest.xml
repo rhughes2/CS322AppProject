@@ -1,9 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-<!--Package="NAMEOFAPPDOMAIN(ARBITRARY PROPOSAL COM.DRINKEAAPP)"-->
-<!--
-Package identifier missing??
-Wrapping issues??
--->>
+<!--Package="com.cs322appproject"-->
 
     <uses-permission android:name="android.permission.INTERNET" />
 
