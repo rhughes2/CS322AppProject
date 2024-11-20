@@ -80,6 +80,8 @@ android {
     namespace "com.cs322appproject"
     defaultConfig {
         applicationId "com.cs322appproject"
+        /* Where is the Manifest?? */
+        /* ManifestPlaceholder = [auth0Domain:"", auth0Scheme: "${applicationId}"] */
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
