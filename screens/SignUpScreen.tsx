@@ -26,11 +26,6 @@ const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-<<<<<<< HEAD
-  const handleSignUp = () => {
-    // Placeholder for Auth0 sign-up logic if needed
-    console.log('Sign up with:', email, password);
-=======
   const handleSignUp = /* async */() => {
     // Placeholder for Auth0 sign-up logic if needed -Arvic
     // Method for creating Users, can be moved to useAuth.js
@@ -49,7 +44,6 @@ const SignUpScreen = ({ navigation }) => {
     }
   }; */
     console.log('Sign up with:', fullName, email, password);
->>>>>>> 75c04fc09fed346344e0bddf009e1c3353a9dd95
   };
 
   return (
