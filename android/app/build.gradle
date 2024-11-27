@@ -80,7 +80,7 @@ android {
     namespace "com.cs322appproject"
     defaultConfig {
         applicationId "com.cs322appproject"
-        manifestPlaceholders = [auth0Domain: "dev-aiauajuakap8gbbb.us.auth0.com", auth0Scheme: "${gsNkJdbjzSLEluQiWN5CUy9ePud0tYqA}"]
+        manifestPlaceholders = [auth0Domain: "dev-aiauajuakap8gbbb.us.auth0.com", auth0Scheme: "gsNkJdbjzSLEluQiWN5CUy9ePud0tYqA"]
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
