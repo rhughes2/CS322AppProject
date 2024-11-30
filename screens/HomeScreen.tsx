@@ -15,9 +15,10 @@ const HomeScreen = () => {
   // For some reason the images don't populate... I've tried a bunch of stuff
 
   const featuredBars = [
-    { id: '1', title: 'Istmo Brew Hub', rating: '4.5', Image: '../assets/Drink.png', time: '10-15 mins' },
-    { id: '2', title: 'Feroz', rating: '4.7', Image: '../assets/two-cocktails-by-restaurant-open-fire-royalty-free-image-1680877011.jpg', time: '15-20 mins' },
+    { id: '1', title: 'Istmo Brew Hub', rating: '4.5', image: require('../assets/Drink.png'), time: '10-15 mins', },
+    { id: '2', title: 'Feroz', rating: '4.7', image: require('../assets/two-cocktails-by-restaurant-open-fire-royalty-free-image-1680877011.jpg'), time: '15-20 mins', },
   ];
+  
 
   return (
     <ScrollView style={styles.container}>
@@ -47,7 +48,7 @@ const HomeScreen = () => {
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.featuredBars}>
         {featuredBars.map((bar) => (
           <View key={bar.id} style={styles.barCard}>
-            <Image source={{ uri: bar.image }} style={styles.barImage} />
+            <Image source={bar.image} style={styles.barImage} />
             <Text>{bar.title}</Text>
             <Text>{bar.rating} ⭐</Text>
             <Text>{bar.time}</Text>
@@ -58,17 +59,17 @@ const HomeScreen = () => {
       {/* Popular Places */}
       <Text style={styles.sectionTitle}>Popular Places</Text>
       <FlatList
-        data={featuredBars} // If we get non-demo data it would go here -RJ
-        numColumns={2}
-        renderItem={({ item }) => (
-          <View style={styles.popularPlaceCard}>
-            <Image source={{ uri: item.image }} style={styles.popularImage} />
-            <Text>{item.title}</Text>
-            <Text>{item.rating} ⭐</Text>
-          </View>
-        )}
+        data={featuredBars}
         keyExtractor={(item) => item.id}
-      />
+        renderItem={({ item }) => (
+        <View style={styles.popularPlaceCard}>
+          <Image source={item.image} style={styles.popularImage} />
+          <Text>{item.title}</Text>
+          <Text>{item.rating} ⭐</Text>
+        </View>
+  )}
+/>
+
 
       {/* Bottom Navigation (I'm not sure this works at all lol -RJ*/}
       <View style={styles.bottomNav}>
