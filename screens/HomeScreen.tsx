@@ -1,22 +1,67 @@
-import React from 'react';
-import { View, Text, TextInput, ScrollView, FlatList, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native';
+import axios from 'axios';
 
-// Hey look emojis! I'm sure we can find a way to make these the nicer logos but now I think its fun lol -RJ
+
+const GOOGLE_PLACES_API_KEY = 'AIzaSyBgG5AZgI5-zIAvU0n_GXj_1a0FY4gmRdI';
 
 const HomeScreen = () => {
+  const [popularBars, setPopularBars] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchPopularBars = async () => {
+    try {
+      const { data } = await axios.get(
+        `https://maps.googleapis.com/maps/api/place/nearbysearch/json`,
+        {
+          params: {
+            location: '41.998638, -87.660658', //Made it Loyola but could be dynamic in the future AT
+            radius: 5000, // Units is meters here AT
+            type: 'bar',
+            key: GOOGLE_PLACES_API_KEY,
+          },
+        }
+      );
+
+      const bars = data.results.map((place) => ({
+        id: place.place_id,
+        title: place.name,
+        rating: place.rating || 'N/A',
+        image: place.photos
+          ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${place.photos[0].photo_reference}&key=${GOOGLE_PLACES_API_KEY}`
+          : 'https://via.placeholder.com/150', // Placeholder if no image
+        address: place.vicinity,
+      }));
+      setPopularBars(bars);
+    } catch (error) {
+      console.error('Error fetching popular bars:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPopularBars();
+  }, []);
+
+  // Hey look emojis! I'm sure we can find a way to make these the nicer logos but now I think its fun lol -RJ
+
   const categories = [
     { id: '1', title: 'Beer', icon: '🍺' },
     { id: '2', title: 'Wines', icon: '🍷' },
     { id: '3', title: 'Cocktails', icon: '🍹' },
     { id: '4', title: 'Burgers', icon: '🍔' },
     { id: '5', title: 'Promos', icon: '🏷️' },
-  ];
-
-  // For some reason the images don't populate... I've tried a bunch of stuff
-
-  const featuredBars = [
-    { id: '1', title: 'Istmo Brew Hub', rating: '4.5', image: '../assets/Drink.png', time: '10-15 mins' },
-    { id: '2', title: 'Feroz', rating: '4.7', image: '../assets/two-cocktails-by-restaurant-open-fire-royalty-free-image-1680877011.jpg', time: '15-20 mins' },
   ];
 
   return (
@@ -42,42 +87,25 @@ const HomeScreen = () => {
         ))}
       </ScrollView>
 
-      {/* Featured Bars */}
-      <Text style={styles.sectionTitle}>Featured Bars</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.featuredBars}>
-        {featuredBars.map((bar) => (
-          <View key={bar.id} style={styles.barCard}>
-            <Image source={{ uri: bar.image }} style={styles.barImage} />
-            <Text>{bar.title}</Text>
-            <Text>{bar.rating} ⭐</Text>
-            <Text>{bar.time}</Text>
-          </View>
-        ))}
-      </ScrollView>
-
-      {/* Popular Places */}
-      <Text style={styles.sectionTitle}>Popular Places</Text>
-      <FlatList
-        data={featuredBars} // If we get non-demo data it would go here -RJ
-        numColumns={2}
-        renderItem={({ item }) => (
-          <View style={styles.popularPlaceCard}>
-            <Image source={{ uri: item.image }} style={styles.popularImage} />
-            <Text>{item.title}</Text>
-            <Text>{item.rating} ⭐</Text>
-          </View>
-        )}
-        keyExtractor={(item) => item.id}
-      />
-
-      {/* Bottom Navigation (I'm not sure this works at all lol -RJ*/}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity><Text>🔍</Text></TouchableOpacity>
-        <TouchableOpacity><Text>📍</Text></TouchableOpacity>
-        <TouchableOpacity><Text>🏠</Text></TouchableOpacity>
-        <TouchableOpacity><Text>👤</Text></TouchableOpacity>
-        <TouchableOpacity><Text>☰</Text></TouchableOpacity>
-      </View>
+      {/* Popular Bars */}
+      <Text style={styles.sectionTitle}>Popular Bars</Text>
+      {loading ? (
+        <ActivityIndicator size="large" color="#f8ce46" />
+      ) : (
+        <FlatList
+          data={popularBars}
+          horizontal
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.barCard}>
+              <Image source={{ uri: item.image }} style={styles.barImage} />
+              <Text style={styles.barTitle}>{item.title}</Text>
+              <Text>{item.rating} ⭐</Text>
+              <Text>{item.address}</Text>
+            </View>
+          )}
+        />
+      )}
     </ScrollView>
   );
 };
@@ -125,37 +153,22 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginLeft: 10,
   },
-  featuredBars: {
-    paddingLeft: 10,
-  },
   barCard: {
     marginRight: 10,
     width: 150,
     backgroundColor: '#f9f9f9',
     borderRadius: 10,
     overflow: 'hidden',
+    padding: 10,
   },
   barImage: {
     width: '100%',
     height: 100,
   },
-  popularPlaceCard: {
-    flex: 1,
-    margin: 5,
-    backgroundColor: '#f9f9f9',
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
-  popularImage: {
-    width: '100%',
-    height: 100,
-  },
-  bottomNav: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingVertical: 10,
-    borderTopWidth: 1,
-    borderColor: '#e0e0e0',
+  barTitle: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    marginTop: 5,
   },
 });
 
