@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import useAuth from '../useAuth';
+import axios from 'axios';
 
 const LoginScreen = () => {
   const { user, login, logout } = useAuth();
@@ -27,6 +28,20 @@ const SignUpScreen = ({ navigation }) => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  function handleSubmit() {
+    const userData = {
+      fullName: fullName,
+      email,
+      password,
+    };
+    axios
+      .post("http://10.0.0.140:8001/signUp", userData) /* replace localhost with IP and you can see Accounts being created and passed in MongoDB :) */
+      .then(res => console.log(res.data))
+      .catch(e => console.log(e));
+
+    
+  }
 
   const handleSignUp = /* async */() => {
     // Placeholder for Auth0 sign-up logic if needed -Arvic
@@ -83,7 +98,7 @@ const SignUpScreen = ({ navigation }) => {
       </View>
 
       {/* Sign Up Button */}
-      <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
+      <TouchableOpacity style={styles.signUpButton} onPress={()=>handleSubmit()}>
         <Text style={styles.signUpButtonText}>Sign Up</Text>
       </TouchableOpacity>
 
