@@ -36,7 +36,7 @@ const SignUpScreen = ({ navigation }) => {
       password,
     };
     axios
-      .post("http://10.0.0.140:8001/signUp", userData) /* replace localhost with IP and you can see Accounts being created and passed in MongoDB :) */
+      .post("http://localhost:8001/signUp", userData) /* replace localhost with IP and you can see Accounts being created and passed in MongoDB :) */
       .then(res => console.log(res.data))
       .catch(e => console.log(e));
 
